@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>AI Avatar Generator</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header id="header">
+			<h1>AI Avatar Generator</h1>
+			<p>Upload your selfie and get a custom AI avatar!</p>
+		</header>
+
+		<!-- Main -->
+		<section id="main" class="main">
+			<form id="avatarForm">
+				<input type="file" id="imageInput" accept="image/*" required><br><br>
+				<label for="styleSelect">Choose a style:</label>
+				<select id="styleSelect">
+					<option value="anime">Anime</option>
+					<option value="pixar">Pixar</option>
+					<option value="realistic">Realistic</option>
+				</select><br><br>
+				<button type="submit">Generate Avatar</button>
+			</form>
+
+			<div id="resultSection" style="display:none;">
+				<h2>Your AI Avatar</h2>
+				<img id="resultImage" src="" alt="Generated Avatar" />
+			</div>
+		</section>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<p>Made with ❤️ using AI</p>
+		</footer>
+
+		<script src="script.js"></script>
+	</body>
+</html>
