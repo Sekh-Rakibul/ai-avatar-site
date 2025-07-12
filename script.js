@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch("https://api.replicate.com/v1/predictions", {
         method: "POST",
         headers: {
-          "Authorization": "Token r8_UsENGDU6MkpH5mq6IIhB6BoI6VHAw5e2UTBww",  // Your key
+          "Authorization": "Token r8_AbGlKrrgY15ksfxhmKUssdJL4Jy9hQP2g51hw",  // ✅ your key
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          version: "17f6ceac404b4d1692ba829f4fef4ce44e212afe",  // Realistic Vision v5
+          version: "17f6ceac404b4d1692ba829f4fef4ce44e212afe", // ✅ realistic-vision-v5
           input: {
             prompt: prompt,
             width: 512,
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
           } else if (statusData?.status === "failed") {
             break;
           }
-          await new Promise((res) => setTimeout(res, 2000));
+          await new Promise((res) => setTimeout(res, 2000)); // Wait 2s
         }
 
         if (finalUrl) {
