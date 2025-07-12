@@ -15,11 +15,12 @@
     h1 {
       margin-bottom: 20px;
     }
-    input[type="file"] {
-      padding: 8px;
-      background: #f1f5f9;
-      border-radius: 4px;
-      margin-bottom: 10px;
+    input[type="text"] {
+      padding: 10px;
+      width: 60%;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
@@ -29,6 +30,7 @@
       border-radius: 6px;
       cursor: pointer;
       font-size: 16px;
+      margin-top: 10px;
     }
     img {
       max-width: 300px;
@@ -40,9 +42,12 @@
 </head>
 <body>
   <h1>🪄 AI Avatar Generator</h1>
+
+  <!-- ✅ Prompt Input Form -->
   <form id="avatarForm">
-    <input type="file" id="imageInput" accept="image/*" required /><br />
-    <button type="submit">Generate Avatar</button>
+    <input type="text" id="promptInput" placeholder="Enter your avatar description..." required />
+    <br /><br />
+    <button type="submit">Generate Realistic Avatar</button>
   </form>
 
   <section id="resultSection" style="display: none;">
