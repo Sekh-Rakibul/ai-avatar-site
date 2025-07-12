@@ -2,49 +2,48 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("avatarForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const imageInput = document.getElementById("imageInput").files[0];
+    const prompt = document.getElementById("promptInput").value;
     const resultImage = document.getElementById("resultImage");
     const resultSection = document.getElementById("resultSection");
 
-    if (!imageInput) {
-      alert("Please upload an image.");
+    if (!prompt) {
+      alert("Please enter a prompt!");
       return;
     }
 
     resultSection.style.display = "block";
     resultImage.src = "";
-    resultImage.alt = "Generating avatar...";
+    resultImage.alt = "Generating...";
 
-    const reader = new FileReader();
-    reader.onloadend = async function () {
-      const base64Image = reader.result.split(",")[1];
-
-      const replicateResponse = await fetch("https://api.replicate.com/v1/predictions", {
+    try {
+      const response = await fetch("https://api.replicate.com/v1/predictions", {
         method: "POST",
         headers: {
-          "Authorization": "Token r8_AbGlKrrgY15ksfxhmKUssdJL4Jy9hQP2g51hw", // Your API key
+          "Authorization": "Token r8_AbGlKrrgY15ksfxhmKUssdJL4Jy9hQP2g51hw",  // Your key
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          version: "f7bd87d911acfe6955c4f9d7062701f0c3bce3a80a8f37dd18e9fa19c6c9cf0d", // face-to-painting
+          version: "17f6ceac404b4d1692ba829f4fef4ce44e212afe",  // Realistic Vision v5
           input: {
-            image: "data:image/jpeg;base64," + base64Image
+            prompt: prompt,
+            width: 512,
+            height: 512
           }
         })
       });
 
-      const replicateData = await replicateResponse.json();
+      const data = await response.json();
 
-      if (replicateData?.urls?.get) {
+      if (data?.urls?.get) {
         let finalUrl = "";
         while (!finalUrl) {
-          const statusRes = await fetch(replicateData.urls.get, {
+          const statusRes = await fetch(data.urls.get, {
             headers: { "Authorization": "Token r8_AbGlKrrgY15ksfxhmKUssdJL4Jy9hQP2g51hw" }
           });
           const statusData = await statusRes.json();
 
           if (statusData?.status === "succeeded") {
-            finalUrl = statusData.output;
+            finalUrl = statusData.output[0];
           } else if (statusData?.status === "failed") {
             break;
           }
@@ -55,13 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
           resultImage.src = finalUrl;
           resultImage.alt = "Generated Avatar";
         } else {
-          resultImage.alt = "Failed to generate avatar.";
+          resultImage.alt = "Failed to generate image.";
         }
       } else {
-        resultImage.alt = "Error: No response from Replicate.";
+        resultImage.alt = "No response from Replicate.";
       }
-    };
-
-    reader.readAsDataURL(imageInput);
+    } catch (error) {
+      resultImage.alt = "Error: " + error.message;
+    }
   });
 });
