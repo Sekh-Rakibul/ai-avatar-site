@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch("https://api.replicate.com/v1/predictions", {
         method: "POST",
         headers: {
-          "Authorization": "Token r8_AbGlKrrgY15ksfxhmKUssdJL4Jy9hQP2g51hw",  // Your key
+          "Authorization": "Token r8_UsENGDU6MkpH5mq6IIhB6BoI6VHAw5e2UTBww",  // Your key
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
